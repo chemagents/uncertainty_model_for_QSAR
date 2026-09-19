@@ -1,0 +1,20 @@
+\begin{center}
+\refstepcounter{table}\label{tab:pheno_mie_quadrants}
+\begin{minipage}{0.98\textwidth}
+\textbf{Table \thetable:} Median-split toxicity-phenotype/MIE-proxy quadrants in the held-out test set. Widths are full 90\% conformal interval widths in $-\lg\mathrm{LD}_{50}$ units. The point predictor is unchanged across rows; only the local calibration space differs.
+\par\vspace{0.5em}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.4pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Quadrant & $n$, ligands & Joint width & Pheno-only & MIE-only & Coverage & Interval $<$ global \\
+\midrule
+Pheno$+$ MIE$+$ & 699 & \textbf{1.301} & 1.351 & 1.487 & 92.70\% & 697/699 \\
+Pheno$+$ MIE$-$ & 528 & 1.435 & 1.409 & 1.594 & 88.26\% & 402/528 \\
+Pheno$-$ MIE$+$ & 547 & 1.612 & 1.663 & 1.490 & 87.75\% & 281/547 \\
+Pheno$-$ MIE$-$ & 759 & 1.697 & 1.712 & 1.618 & 87.62\% & 170/759 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{center}

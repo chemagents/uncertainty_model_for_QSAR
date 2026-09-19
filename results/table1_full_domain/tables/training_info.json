@@ -1,0 +1,77 @@
+{
+  "Baseline": {
+    "best_params": {
+      "iterations": 762,
+      "depth": 6,
+      "learning_rate": 0.22486425123692586,
+      "l2_leaf_reg": 4.414780019047116,
+      "random_strength": 1.2801770049351129,
+      "bagging_temperature": 0.19362599980591533
+    },
+    "early_stop_rmse": 0.47601927616844997,
+    "n_samples": 10114,
+    "n_test": 2537,
+    "n_features": 2094,
+    "training_mode": "fixed"
+  },
+  "PCA": {
+    "best_params": {
+      "iterations": 762,
+      "depth": 6,
+      "learning_rate": 0.22486425123692586,
+      "l2_leaf_reg": 4.414780019047116,
+      "random_strength": 1.2801770049351129,
+      "bagging_temperature": 0.19362599980591533
+    },
+    "early_stop_rmse": 0.46282308145701145,
+    "n_samples": 10114,
+    "n_test": 2537,
+    "n_features": 2053,
+    "training_mode": "fixed"
+  },
+  "ADME": {
+    "best_params": {
+      "iterations": 362,
+      "depth": 8,
+      "learning_rate": 0.1205712628744377,
+      "l2_leaf_reg": 6.387926357773329,
+      "random_strength": 0.31203728088487304,
+      "bagging_temperature": 0.7799726016810132
+    },
+    "early_stop_rmse": 0.4832533499846443,
+    "n_samples": 10114,
+    "n_test": 2537,
+    "n_features": 2162,
+    "training_mode": "fixed"
+  },
+  "Plain": {
+    "best_params": {
+      "iterations": 708,
+      "depth": 7,
+      "learning_rate": 0.14074393812229913,
+      "l2_leaf_reg": 3.536749818416572,
+      "random_strength": 1.593003811844754,
+      "bagging_temperature": 3.234900862052149
+    },
+    "early_stop_rmse": 0.4709758016574947,
+    "n_samples": 10114,
+    "n_test": 2537,
+    "n_features": 2050,
+    "training_mode": "fixed"
+  },
+  "BBB pass": {
+    "best_params": {
+      "iterations": 614,
+      "depth": 7,
+      "learning_rate": 0.14978277007160656,
+      "l2_leaf_reg": 1.0200393001337464,
+      "random_strength": 1.655136721037486,
+      "bagging_temperature": 1.1852900897108616
+    },
+    "early_stop_rmse": 0.40992104443272404,
+    "n_samples": 6871,
+    "n_test": 1732,
+    "n_features": 2094,
+    "training_mode": "fixed"
+  }
+}

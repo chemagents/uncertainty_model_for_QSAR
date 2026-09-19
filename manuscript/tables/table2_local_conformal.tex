@@ -1,0 +1,34 @@
+\begin{center}
+\refstepcounter{table}\label{tab:local_conformal}
+\begin{minipage}{0.92\textwidth}
+\textbf{Table \thetable:} Summary of the toxicity-phenotype/MIE-proxy conformal calibration experiment. The point predictor was a deliberately simple structural QSAR model trained on Morgan fingerprints, MW, and logP; docking scores and ADMETLab toxicity-phenotype outputs were used only for local residual calibration. Wilson intervals use the held-out molecules as Bernoulli trials; cluster-bootstrap intervals resample whole Butina test clusters.
+\par\vspace{0.5em}
+\centering
+\begin{tabular}{lr}
+\toprule
+Quantity & Value \\
+\midrule
+Model-training molecules & 8,038 \\
+Calibration molecules & 2,079 \\
+Held-out test molecules & 2,533 \\
+\midrule
+Global 90\% split-conformal interval width & 1.573 \\
+Global 90\% empirical coverage & 89.89\% (2,277/2,533) \\
+Global Wilson 95\% CI & 88.66\%--91.01\% \\
+Global cluster-bootstrap 95\% CI & 88.29\%--91.37\% \\
+Localized 90\% empirical coverage & 89.18\% (2,259/2,533) \\
+Localized Wilson 95\% CI & 87.91\%--90.33\% \\
+Localized cluster-bootstrap 95\% CI & 87.52\%--90.74\% \\
+Localized fallback use & 14/2,533 (0.55\%) \\
+Localized calibration coverage (no fallback) & 89.32\% (2,250/2,519) \\
+Fallback-subset coverage (diagnostic only) & 64.29\% (9/14) \\
+Fallback-subset Wilson 95\% CI & 38.76\%--83.66\% \\
+Fallback vs. localized mean width & 1.573 vs. 1.514 \\
+Mean local 90\% interval width & 1.515 \\
+Median local 90\% interval width & 1.519 \\
+Local interval width, 10th--90th percentile & 1.209--1.813 \\
+Displayed map range of interval width & 1.20--1.88 \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{center}

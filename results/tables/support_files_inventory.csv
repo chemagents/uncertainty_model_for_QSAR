@@ -1,0 +1,4 @@
+file,exists,bytes
+data/excluded_molecules.csv,True,254
+data/receptor_panel_annotation.csv,True,2881
+results/splits/split_indices.csv,True,5099538

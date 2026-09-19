@@ -1,0 +1,64 @@
+{
+  "protocol_name": "butina_r2_fp2048_achiral_d035_excluded1298",
+  "purpose": "Reviewer-facing Butina clustering after applying excluded_molecules.csv.",
+  "input": {
+    "df_final": "data/df_final.csv",
+    "df_final_sha256_after_rewrite": "296a7b89cefeb2a925aeaaf9e8b6eeaf273199c889252930899f73c85c81dbb4",
+    "excluded_molecules": "data/excluded_molecules.csv",
+    "excluded_molecules_sha256": "637a75427e5496aa12a7eb307e2ce1b4cbf25c05d8be1f2fe1fa9d446ccafa9a",
+    "excluded_ligand_ids": [
+      1298
+    ],
+    "molecules_before_exclusion": 12651,
+    "molecules_clustered": 12650,
+    "smiles_column": "Canonical SMILES",
+    "input_order": "ascending ligand_id after applying exclusions"
+  },
+  "fingerprint": {
+    "type": "Morgan bit vector",
+    "radius": 2,
+    "fpSize": 2048,
+    "includeChirality": false,
+    "countSimulation": false
+  },
+  "distance": {
+    "metric": "1 - TanimotoSimilarity",
+    "dtype": "float64",
+    "similarity_threshold": 0.65,
+    "distance_cutoff": 0.35
+  },
+  "butina": {
+    "rdkit_call": "Butina.ClusterData(dist, n, 0.35, isDistData=True, reordering=False)",
+    "isDistData": true,
+    "reordering": false,
+    "cluster_numbering": "RDKit output order, 1-based"
+  },
+  "environment": {
+    "python": "3.14.5 (main, May 13 2026, 18:05:18) [GCC 15.2.0]",
+    "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+    "rdkit": "2026.03.2",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "outputs": {
+    "directory": "results/splits/butina_r2_fp2048_achiral_d035_excluded1298",
+    "clusters": "clusters.csv",
+    "cluster_summary": "cluster_summary.csv",
+    "validation": "validation.json"
+  },
+  "result": {
+    "success": true,
+    "df_final_rows_after_rewrite": 12651,
+    "excluded_ids": [
+      1298
+    ],
+    "excluded_ids_not_assigned": true,
+    "assigned_non_excluded_molecules": 12650,
+    "n_clustered_molecules": 12650,
+    "n_clusters": 8195,
+    "n_singleton_clusters": 6489,
+    "largest_cluster_size": 42,
+    "clusters_sha256": "c75e1d3ad90505553a580aeb3ce95fd86ff425350948e42a5f87858ddd5d61f1",
+    "cluster_summary_sha256": "dbf6f9b90dff4ae94e5830ad6bcf072993c87298964c9354a543d6ff55bea44a"
+  }
+}

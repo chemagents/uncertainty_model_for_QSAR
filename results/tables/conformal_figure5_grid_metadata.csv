@@ -1,0 +1,3 @@
+coordinate,grid_quantile_low,grid_quantile_high,display_axis_low,display_axis_high,grid_cells_per_axis,coordinate_rule
+E_mean,-9.379271670190276,-3.402738636363653,-9.0,-4.0,80,active-cohort 0.5th to 99.5th percentile; displayed x-axis fixed to -9 to -4
+B_Tox,0.03423666788730751,2.987721601128578,0.03423666788730751,2.987721601128578,80,active-cohort 0.5th to 99.5th percentile

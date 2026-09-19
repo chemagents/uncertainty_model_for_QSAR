@@ -1,0 +1,24 @@
+\begin{sidewaystable}[!p]
+\caption{Thirty-split comparison of regression models. Each value is the mean $\pm$ sample standard deviation across 30 predefined cluster-safe splits. Lower RMSE, MAE, MSE, and conformal prediction-interval (PI) length are better; higher $R^2$, Spearman's $\rho$, and CCC are better. Split-conformal residuals were calibrated on the validation subset and evaluated once on the held-out test subset.\label{tab:model_quality}}
+\centering
+\tiny
+\setlength{\tabcolsep}{1.7pt}
+\renewcommand{\arraystretch}{1.14}
+\begin{tabular}{l *{6}{r} *{3}{r}}
+\toprule
+\textbf{Model} & \textbf{RMSE} & \textbf{MAE} & \textbf{MSE} & $\boldsymbol{R^2}$ & \textbf{Spearman} & \textbf{CCC} & \multicolumn{3}{c}{\textbf{Conformal PI length}} \\
+\cmidrule(lr){8-10}
+& & & & & & & \textbf{80\%} & \textbf{90\%} & \textbf{95\%} \\
+\midrule
+\multicolumn{10}{l}{\textit{Full held-out test set: mean $n=2527 (2,413--2,667)$ molecules per split}} \\
+Baseline & $0.526\,\pm\,0.018$ & $0.368\,\pm\,0.010$ & $0.277\,\pm\,0.019$ & $0.483\,\pm\,0.024$ & $0.683\,\pm\,0.014$ & $0.653\,\pm\,0.020$ & $1.113\,\pm\,0.037$ & $1.602\,\pm\,0.058$ & $2.174\,\pm\,0.095$ \\
+PCA & $0.522\,\pm\,0.018$ & $0.363\,\pm\,0.010$ & $0.272\,\pm\,0.019$ & $0.492\,\pm\,0.025$ & $0.689\,\pm\,0.015$ & $0.660\,\pm\,0.021$ & $1.101\,\pm\,0.039$ & $1.582\,\pm\,0.066$ & $2.152\,\pm\,0.104$ \\
+ADME & $0.514\,\pm\,0.017$ & $0.356\,\pm\,0.010$ & $0.265\,\pm\,0.018$ & $0.506\,\pm\,0.022$ & $0.701\,\pm\,0.012$ & $0.662\,\pm\,0.020$ & $1.065\,\pm\,0.040$ & $1.545\,\pm\,0.067$ & $2.123\,\pm\,0.099$ \\
+Plain & $0.514\,\pm\,0.017$ & $0.357\,\pm\,0.010$ & $0.265\,\pm\,0.017$ & $0.506\,\pm\,0.023$ & $0.701\,\pm\,0.014$ & $0.665\,\pm\,0.018$ & $1.079\,\pm\,0.041$ & $1.563\,\pm\,0.060$ & $2.121\,\pm\,0.079$ \\
+\midrule
+\multicolumn{10}{l}{\textit{BBB-permeant held-out test subset: same molecules for both rows; mean $n=1718 (1,645--1,792)$ per split}} \\
+Plain (full train) & $0.455\,\pm\,0.016$ & $0.322\,\pm\,0.009$ & $0.207\,\pm\,0.015$ & $0.453\,\pm\,0.024$ & $0.666\,\pm\,0.017$ & $0.624\,\pm\,0.018$ & $1.079\,\pm\,0.041$ & $1.563\,\pm\,0.060$ & $2.121\,\pm\,0.079$ \\
+BBB pass & $0.465\,\pm\,0.017$ & $0.328\,\pm\,0.009$ & $0.217\,\pm\,0.015$ & $0.429\,\pm\,0.025$ & $0.652\,\pm\,0.017$ & $0.603\,\pm\,0.019$ & $1.000\,\pm\,0.037$ & $1.424\,\pm\,0.067$ & $1.915\,\pm\,0.101$ \\
+\bottomrule
+\end{tabular}
+\end{sidewaystable}

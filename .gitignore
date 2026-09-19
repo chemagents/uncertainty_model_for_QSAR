@@ -1,0 +1,13 @@
+# The article workspace is published separately from this analysis repository.
+article/
+
+# Serialized model caches are reproducible but too large for ordinary GitHub.
+results/models/
+results/table1_full_domain/models/
+*.pkl
+
+__pycache__/
+**/__pycache__/
+*.pyc
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/

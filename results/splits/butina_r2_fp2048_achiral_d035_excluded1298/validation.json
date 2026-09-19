@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "df_final_rows_after_rewrite": 12651,
+  "excluded_ids": [
+    1298
+  ],
+  "excluded_ids_not_assigned": true,
+  "assigned_non_excluded_molecules": 12650,
+  "n_clustered_molecules": 12650,
+  "n_clusters": 8195,
+  "n_singleton_clusters": 6489,
+  "largest_cluster_size": 42,
+  "clusters_sha256": "c75e1d3ad90505553a580aeb3ce95fd86ff425350948e42a5f87858ddd5d61f1",
+  "cluster_summary_sha256": "dbf6f9b90dff4ae94e5830ad6bcf072993c87298964c9354a543d6ff55bea44a"
+}

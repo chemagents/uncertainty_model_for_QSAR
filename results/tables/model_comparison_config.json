@@ -1,0 +1,17 @@
+{
+  "protocol": "butina30_train_val_split_conformal_v1",
+  "metrics_file": "results/tables/model_comparison_metrics.csv",
+  "summary_file": "results/tables/model_comparison_summary.csv",
+  "bbb_pair_audit": "results/tables/model_comparison_bbb_pair_audit.csv",
+  "model_root": "results/models/split_00 ... results/models/split_29",
+  "figure_1_panel_a": [
+    "Baseline",
+    "PCA",
+    "ADME",
+    "Plain"
+  ],
+  "figure_1_panel_b": [
+    "Plain",
+    "BBB pass"
+  ]
+}

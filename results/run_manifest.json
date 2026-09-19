@@ -1,0 +1,42 @@
+[
+  {
+    "notebook": "notebooks/01_data_inventory.ipynb",
+    "seconds": 400.096
+  },
+  {
+    "notebook": "notebooks/02_model_training.ipynb",
+    "seconds": 94.296
+  },
+  {
+    "script": "scripts/train_model_splits.py",
+    "seconds": 1305.391
+  },
+  {
+    "notebook": "notebooks/03_fig1ab_fig2_table1.ipynb",
+    "seconds": 5.443
+  },
+  {
+    "notebook": "notebooks/04_shap_fig3_fig4.ipynb",
+    "seconds": 17.059
+  },
+  {
+    "notebook": "notebooks/05_fig5_conformal_landscape.ipynb",
+    "seconds": 591.621
+  },
+  {
+    "script": "scripts/audit_comment8_reproducibility.py",
+    "seconds": 6.113
+  },
+  {
+    "notebook": "notebooks/06_manuscript_tables.ipynb",
+    "seconds": 2.734
+  },
+  {
+    "script": "scripts/train_table1_full_domain.py",
+    "seconds": 90.559
+  },
+  {
+    "notebook": "notebooks/07_assemble_article.ipynb",
+    "seconds": 1.984
+  }
+]

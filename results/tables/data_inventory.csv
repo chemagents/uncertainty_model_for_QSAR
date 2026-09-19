@@ -1,0 +1,12 @@
+item,value
+raw_source_rows,12651
+excluded_all_model_splits,1
+active_modeling_cohort,12650
+n_columns,2237
+n_fingerprint_columns,2048
+n_protein_columns,44
+protein_nan_cells,8159
+rows_with_any_protein_nan,3354
+target_nonmissing,12651
+raw_unique_ligand_id,12651
+active_unique_ligand_id,12650

@@ -1,0 +1,2 @@
+ligand_id,Pubchem CID,scope,reason,source
+1298,120203,all_model_splits,"High-promiscuity PFAS-like outlier: p=43, baseline CatBoost full-test abs_error=1.5065; excluded from all train/val/test splits at code level.",promiscuity/high_p_error_outliers.csv
