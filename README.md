@@ -84,7 +84,7 @@ For robustness analyses, notebook 01 regenerates Butina assignments from the
 canonical molecular table. The resulting 30 split registry is written under:
 
 ```text
-results/splits/butina_r2_fp2048_achiral_d035_excluded1298/
+results/splits/butina/
 ```
 
 The 30-split mean and standard deviation describe a different evaluation

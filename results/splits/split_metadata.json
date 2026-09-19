@@ -2,7 +2,7 @@
   "protocol_name": "butina_cluster_safe_random_splits_v1",
   "purpose": "Thirty reproducible cluster-safe random splits for downstream model work.",
   "input": {
-    "clusters": "results/splits/butina_r2_fp2048_achiral_d035_excluded1298/clusters.csv",
+    "clusters": "results/splits/butina/clusters.csv",
     "clusters_sha256": "c75e1d3ad90505553a580aeb3ce95fd86ff425350948e42a5f87858ddd5d61f1",
     "input_order": "ascending ligand_id from clusters.csv",
     "n_molecules": 12650,

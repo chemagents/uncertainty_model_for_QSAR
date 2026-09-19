@@ -1,5 +1,5 @@
 {
-  "protocol_name": "butina_r2_fp2048_achiral_d035_excluded1298",
+  "protocol_name": "butina",
   "purpose": "Reviewer-facing Butina clustering after applying excluded_molecules.csv.",
   "input": {
     "df_final": "data/df_final.csv",
@@ -41,7 +41,7 @@
     "pandas": "3.0.3"
   },
   "outputs": {
-    "directory": "results/splits/butina_r2_fp2048_achiral_d035_excluded1298",
+    "directory": "results/splits/butina",
     "clusters": "clusters.csv",
     "cluster_summary": "cluster_summary.csv",
     "validation": "validation.json"
