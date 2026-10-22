@@ -1,8 +1,7 @@
 # A biology-informed uncertainty model for toxicological QSAR
 
-This repository reproduces the final figures, tables, and reviewer-requested
-robustness checks for an acute-toxicity quantitative structure--activity
-relationship (QSAR) workflow. It combines molecular fingerprints,
+This repository reproduces the final figures and tables for an acute-toxicity
+quantitative structure--activity relationship (QSAR) workflow. It combines molecular fingerprints,
 physicochemical descriptors, docking energies for a 44-protein safety panel,
 ADMET-derived annotations, CatBoost regression, SHAP interpretation, and
 localized conformal prediction intervals.
@@ -36,9 +35,10 @@ validation.
 └── requirements.txt
 ```
 
-Model files, calibration predictions, and raw prediction dumps are recreated
-locally in `results/models/` by notebook 02 and are intentionally not versioned.
-The repository contains no manuscript PDF, Supplementary PDF, or reviewer-response PDF.
+Model files, calibration outputs, and prediction dumps are recreated locally in
+`results/models/` when the notebooks in `notebooks/` are run in sequence. Large
+trained-model files are intentionally not included in the repository because
+they are reproduced when the pipeline is run.
 
 ## Inputs and models
 
