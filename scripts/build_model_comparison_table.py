@@ -1,66 +1,107 @@
-"""Write the 30-split Table 1 fragment from the saved comparison summary."""
+"""Build the corrected 30-split Table 1 and paired model-comparison evidence."""
 
+from __future__ import annotations
+
+import hashlib
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SUMMARY = ROOT / "results" / "tables" / "model_comparison_summary.csv"
-OUT = ROOT / "manuscript" / "tables" / "table1_model_quality.tex"
-METRICS = ["RMSE", "MAE", "MSE", "R2", "Spearman", "CCC", "CI_0.80_size", "CI_0.90_size", "CI_0.95_size"]
+TABLES = ROOT / "results" / "tables"
+MODELS = ROOT / "results" / "models"
+METRICS_PATH = MODELS / "model_comparison_metrics.csv"
+SUMMARY_PATH = MODELS / "model_comparison_summary.csv"
+PAIRED_PATH = TABLES / "model_comparison_paired_differences.csv"
+TABLE1_PATH = TABLES / "table1_model_comparison.csv"
+
+FULL_MODELS = ("Baseline", "PCA", "ADME", "Plain")
+TABLE1_METRICS = ("RMSE", "MAE", "R2", "Spearman", "CCC", "CI_0.90_size", "CI_0.90_coverage")
+PAIRED_METRICS = ("RMSE", "MAE", "R2", "Spearman", "CI_0.90_size", "CI_0.90_coverage")
+COMPARISONS = (
+    ("ADME", "Plain", "full_test"),
+    ("PCA", "Plain", "full_test"),
+    ("Baseline", "Plain", "full_test"),
+    ("BBB pass", "Plain", "bbb_pass_test"),
+)
+BOOTSTRAP_SEED = 20261017
+N_BOOTSTRAP = 10_000
 
 
-def select(summary: pd.DataFrame, model: str, domain: str) -> pd.Series:
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def select_summary(summary: pd.DataFrame, model: str, domain: str) -> pd.Series:
     rows = summary.loc[summary["model"].eq(model) & summary["evaluation_domain"].eq(domain)]
     if len(rows) != 1:
         raise ValueError(f"Expected one summary row for {model}/{domain}; got {len(rows)}")
     return rows.iloc[0]
 
 
-def mean_sd(row: pd.Series, metric: str) -> str:
-    return f"${row[f'{metric}_mean']:.3f}\\,\\pm\\,{row[f'{metric}_std']:.3f}$"
+def mean_sd(row: pd.Series, metric: str, *, percent: bool = False) -> str:
+    scale = 100.0 if percent else 1.0
+    suffix = r"\%" if percent else ""
+    return f"${row[f'{metric}_mean'] * scale:.3f}\\,\\pm\\,{row[f'{metric}_std'] * scale:.3f}{suffix}$"
 
 
-def render() -> Path:
-    summary = pd.read_csv(SUMMARY)
-    full_models = ["Baseline", "PCA", "ADME", "Plain"]
-    full_rows = [select(summary, model, "full_test") for model in full_models]
-    bbb_plain = select(summary, "Plain", "bbb_pass_test")
-    bbb_pass = select(summary, "BBB pass", "bbb_pass_test")
-    n_full = f"{full_rows[0]['n_test_mean']:.0f} ({int(full_rows[0]['n_test_min']):,}--{int(full_rows[0]['n_test_max']):,})"
-    n_bbb = f"{bbb_plain['n_test_mean']:.0f} ({int(bbb_plain['n_test_min']):,}--{int(bbb_plain['n_test_max']):,})"
-    lines = [
-        r"\begin{sidewaystable}[!p]",
-        r"\caption{Thirty-split comparison of regression models. Each value is the mean $\pm$ sample standard deviation across 30 predefined cluster-safe splits. Lower RMSE, MAE, MSE, and conformal prediction-interval (PI) length are better; higher $R^2$, Spearman's $\rho$, and CCC are better. Split-conformal residuals were calibrated on the validation subset and evaluated once on the held-out test subset.\label{tab:model_quality}}",
-        r"\centering",
-        r"\tiny",
-        r"\setlength{\tabcolsep}{1.7pt}",
-        r"\renewcommand{\arraystretch}{1.14}",
-        r"\begin{tabular}{l *{6}{r} *{3}{r}}",
-        r"\toprule",
-        r"\textbf{Model} & \textbf{RMSE} & \textbf{MAE} & \textbf{MSE} & $\boldsymbol{R^2}$ & \textbf{Spearman} & \textbf{CCC} & \multicolumn{3}{c}{\textbf{Conformal PI length}} \\",
-        r"\cmidrule(lr){8-10}",
-        r"& & & & & & & \textbf{80\%} & \textbf{90\%} & \textbf{95\%} \\",
-        r"\midrule",
-        rf"\multicolumn{{10}}{{l}}{{\textit{{Full held-out test set: mean $n={n_full}$ molecules per split}}}} \\",
-    ]
-    for model, row in zip(full_models, full_rows):
-        label = model.replace(" ", r"\ ")
-        lines.append(label + " & " + " & ".join(mean_sd(row, metric) for metric in METRICS) + r" \\")
-    lines.extend([
-        r"\midrule",
-        rf"\multicolumn{{10}}{{l}}{{\textit{{BBB-permeant held-out test subset: same molecules for both rows; mean $n={n_bbb}$ per split}}}} \\",
-        "Plain (full train) & " + " & ".join(mean_sd(bbb_plain, metric) for metric in METRICS) + r" \\",
-        "BBB pass & " + " & ".join(mean_sd(bbb_pass, metric) for metric in METRICS) + r" \\",
-        r"\bottomrule",
-        r"\end{tabular}",
-        r"\end{sidewaystable}",
-    ])
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text("\n".join(lines) + "\n")
-    return OUT
+def bootstrap_mean_interval(differences: np.ndarray, rng: np.random.Generator) -> tuple[float, float]:
+    positions = rng.integers(0, len(differences), size=(N_BOOTSTRAP, len(differences)))
+    bootstrap_means = differences[positions].mean(axis=1)
+    return tuple(float(value) for value in np.quantile(bootstrap_means, (0.025, 0.975)))
+
+
+def paired_differences(metrics: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    source_hash = sha256(METRICS_PATH)
+    for comparison_index, (model, reference, domain) in enumerate(COMPARISONS):
+        model_rows = metrics.loc[
+            metrics["model"].eq(model) & metrics["evaluation_domain"].eq(domain)
+        ].set_index("split_index").sort_index()
+        reference_rows = metrics.loc[
+            metrics["model"].eq(reference) & metrics["evaluation_domain"].eq(domain)
+        ].set_index("split_index").sort_index()
+        if not model_rows.index.equals(reference_rows.index) or len(model_rows) != 30:
+            raise ValueError(f"Incomplete paired comparison for {model} versus {reference} in {domain}")
+        for metric_index, metric in enumerate(PAIRED_METRICS):
+            differences = (model_rows[metric] - reference_rows[metric]).to_numpy(float)
+            rng = np.random.default_rng(BOOTSTRAP_SEED + comparison_index * 100 + metric_index)
+            ci_lower, ci_upper = bootstrap_mean_interval(differences, rng)
+            rows.append(
+                {
+                    "evaluation_domain": domain,
+                    "model": model,
+                    "reference_model": reference,
+                    "metric": metric,
+                    "difference_definition": "model - reference_model",
+                    "n_splits": int(len(differences)),
+                    "mean_difference": float(differences.mean()),
+                    "sd_of_split_differences": float(differences.std(ddof=1)),
+                    "bootstrap_ci_95_lower": ci_lower,
+                    "bootstrap_ci_95_upper": ci_upper,
+                    "bootstrap_method": "paired percentile bootstrap of the mean split-wise difference",
+                    "bootstrap_replicates": N_BOOTSTRAP,
+                    "bootstrap_seed": BOOTSTRAP_SEED + comparison_index * 100 + metric_index,
+                    "source_metrics_sha256": source_hash,
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def main() -> None:
+    summary = pd.read_csv(SUMMARY_PATH)
+    metrics = pd.read_csv(METRICS_PATH)
+    if len(metrics) != 180 or set(summary["n_splits"]) != {30}:
+        raise ValueError("Expected completed corrected 30-split model artifacts")
+    paired = paired_differences(metrics)
+    PAIRED_PATH.parent.mkdir(parents=True, exist_ok=True)
+    summary.to_csv(TABLE1_PATH, index=False)
+    paired.to_csv(PAIRED_PATH, index=False)
+    print(f"Wrote: {TABLE1_PATH.relative_to(ROOT)}")
+    print(f"Wrote: {PAIRED_PATH.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
-    print(f"Wrote: {render()}")
+    main()

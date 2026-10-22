@@ -1,2 +1,5 @@
 ligand_id,Pubchem CID,scope,reason,source
-1298,120203,all_model_splits,"High-promiscuity PFAS-like outlier: p=43, baseline CatBoost full-test abs_error=1.5065; excluded from all train/val/test splits at code level.",promiscuity/high_p_error_outliers.csv
+7169,35834,all_model_splits,ADMETLab 3.0 returned Invalid Molecule.,Saved ADMETLab 3.0 annotation export: Invalid Molecule.
+9116,3045647,all_model_splits,ADMETLab 3.0 returned Invalid Molecule.,Saved ADMETLab 3.0 annotation export: Invalid Molecule.
+7120,207776,all_model_splits,ADMETLab 3.0 returned Invalid Molecule.,Saved ADMETLab 3.0 annotation export: Invalid Molecule.
+1298,120203,all_model_splits,Author-excluded high-promiscuity PFAS-like outlier; p=43 and baseline full-test absolute error=1.5065.,Legacy exclusion registry; promiscuity/high_p_error_outliers.csv.

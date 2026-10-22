@@ -1,0 +1,45 @@
+article_pdb_id,panel_col,target_name,gene,protein_class,organ_system,is_cns,notes,source_affinity_gene,source_affinity_gene_present,source_affinity_header_position,source_table_s1_pdb_present,corrected_data_column_present,model_feature_present,alignment_status
+1m2z,1m2z,Glucocorticoid receptor,NR3C1,Nuclear receptor,"Endocrine, immune",0,,NR3C1,True,1,True,True,True,data_and_model
+1pbq,1pbq,NMDA receptor NR1,GRIN1,Ion channel,CNS,1,,GRIN1,True,2,True,True,True,data_and_model
+1xoq,1xoq,Phosphodiesterase 4D,PDE4D,Enzyme,"CNS, immune",1,,PDE4D,True,3,True,True,True,data_and_model
+2rh1,2rh1,Beta-2 adrenergic receptor,ADRB2,GPCR,"Pulmonary, CVS",0,,ADRB2,True,4,True,True,True,data_and_model
+2vt4,2vt4,Beta-1 adrenergic receptor,ADRB1,GPCR,"CVS, GI",0,,ADRB1,True,5,True,True,True,data_and_model
+2ydo,2ydo,Adenosine receptor A2A,ADORA2A,GPCR,"CVS, CNS",1,,ADORA2A,True,6,True,True,True,data_and_model
+2z5x,2z5x,Monoamine oxidase A,MAOA,Enzyme,"CVS, CNS",1,,MAOA,True,7,True,True,True,data_and_model
+3b66,3b66,Androgen receptor,AR,Nuclear receptor,Endocrine,0,,AR,True,8,True,True,True,data_and_model
+3kk6,3kk6,Cyclooxygenase-1,PTGS1,Enzyme,"GI, pulmonary, renal",0,,PTGS1,True,9,True,True,True,data_and_model
+3ln1,3ln1,Cyclooxygenase-2,PTGS2,Enzyme,"Immune, CVS",0,,PTGS2,True,10,True,True,True,data_and_model
+3rze,3rze,Histamine H1 receptor,HRH1,GPCR,"CVS, immune",0,,HRH1,True,11,True,True,True,data_and_model
+4djh,4djh,Kappa opioid receptor,OPRK1,GPCR,"GI, CNS, CVS",1,,OPRK1,True,12,True,True,True,data_and_model
+4ey7,4ey7,Acetylcholinesterase,ACHE,Enzyme,"CVS, GI, pulmonary",0,,ACHE,True,13,True,True,True,data_and_model
+4iar,4iar,5-HT1B receptor,HTR1B,GPCR,"CVS, CNS",1,,HTR1B,True,14,True,True,True,data_and_model
+4mqs,4mqs,Muscarinic acetylcholine receptor M2,CHRM2,GPCR,CVS,0,,CHRM2,True,15,True,True,True,data_and_model
+4n6h,4n6h,Delta opioid receptor,OPRD1,GPCR,"CNS, CVS",1,,OPRD1,True,16,True,True,True,data_and_model
+5cxv,5cxv,Muscarinic acetylcholine receptor M1,CHRM1,GPCR,"CNS, GI, CVS",1,,CHRM1,True,17,True,True,True,data_and_model
+5i71,5i71,Serotonin transporter,SLC6A4,Transporter,"CNS, CVS",1,,SLC6A4,True,18,True,True,True,data_and_model
+5tvn,5tvn,5-HT2B receptor,HTR2B,GPCR,"CVS, pulmonary, development",0,,HTR2B,True,19,True,True,True,data_and_model
+5u09,5u09,Cannabinoid receptor CB1,CNR1,GPCR,CNS,1,,CNR1,True,20,True,True,True,data_and_model
+5va1,5va1,hERG potassium channel,KCNH2,Ion channel,CVS,0,,KCNH2,True,21,True,True,True,data_and_model
+6cm4,6cm4,Dopamine receptor D2,DRD2,GPCR,"CVS, CNS, endocrine",1,,DRD2,True,22,True,True,True,data_and_model
+6kpf,6kpf,Cannabinoid receptor CB2,CNR2,GPCR,Immune,0,,CNR2,True,23,True,True,True,data_and_model
+6kux,6kux,Alpha-2A adrenergic receptor,ADRA2A,GPCR,"CVS, CNS",1,,ADRA2A,True,24,True,True,True,data_and_model
+6lqa,6lqa,Nav1.5 sodium channel,SCN5A,Ion channel,CVS,0,,SCN5A,True,25,True,True,True,data_and_model
+6pdj,6pdj,LCK kinase,LCK,Enzyme,Immune,0,,LCK,True,26,True,True,True,data_and_model
+6x3x,6x3x,GABAA receptor alpha1,GABRA1,Ion channel,CNS,1,,GABRA1,True,27,True,True,True,data_and_model
+6y1z,6y1z,5-HT3 receptor,HTR3A,Ion channel,"GI, endocrine",0,,HTR3A,True,28,True,True,True,data_and_model
+7f8y,7f8y,Cholecystokinin A receptor,CCKAR,GPCR,GI,0,,CCKAR,True,29,True,True,True,data_and_model
+7kwe,7kwe,Phosphodiesterase 3A,PDE3A,Enzyme,CVS,0,,PDE3A,True,30,True,True,True,data_and_model
+7ljd,7ljd,Dopamine receptor D1,DRD1,GPCR,"CVS, CNS",1,,DRD1,True,31,True,True,True,data_and_model
+7wc9,7wc9,5-HT2A receptor,HTR2A,GPCR,"CVS, CNS",1,,HTR2A,True,32,True,True,True,data_and_model
+7xnk,7xnk,KCNQ1 potassium channel,KCNQ1,Ion channel,CVS,0,Source affinity header and Nikitin et al. Table S1 use KCNQ1; the PDB structure may include additional subunits.,KCNQ1,True,33,True,True,True,data_and_model
+7ym8,7ym8,Alpha-1A adrenergic receptor,ADRA1A,GPCR,"CVS, GI, CNS",1,,ADRA1A,True,34,True,True,True,data_and_model
+8e9y,8e9y,Muscarinic acetylcholine receptor M3,CHRM3,GPCR,"GI, pulmonary",0,,CHRM3,True,35,True,True,True,data_and_model
+8ef6,8ef6,Mu opioid receptor,OPRM1,GPCR,"CNS, GI, CVS",1,,OPRM1,True,36,True,True,True,data_and_model
+8fhs,8fhs,Cav1.2 calcium channel,CACNA1C,Ion channel,CVS,0,,CACNA1C,True,37,True,True,True,data_and_model
+8pjk,8pjk,5-HT1A receptor,HTR1A,GPCR,"CNS, endocrine",1,,HTR1A,True,38,True,True,True,data_and_model
+8st0,8st0,Nicotinic acetylcholine receptor subunit alpha-4,CHRNA4,Ion channel,CNS,1,Source affinity header and Nikitin et al. Table S1 use CHRNA4.,CHRNA4,True,39,True,True,True,data_and_model
+8wty,8wty,Noradrenaline transporter,SLC6A2,Transporter,"CNS, CVS",1,,SLC6A2,True,40,True,True,True,data_and_model
+8xvk,8xvk,Endothelin receptor A,EDNRA,GPCR,"CVS, development",0,,EDNRA,True,41,True,True,True,data_and_model
+8yn3,8yn3,Histamine H2 receptor,HRH2,GPCR,"GI, CVS",0,,HRH2,True,42,True,True,True,data_and_model
+9eo4,9eo4,Dopamine transporter,SLC6A3,Transporter,CNS,1,,SLC6A3,True,43,True,True,True,data_and_model
+V1A,V1A,Vasopressin V1A receptor,AVPR1A,GPCR,"Renal, CVS",0,Source affinity header and Nikitin et al. Table S1 use AVPR1A.,AVPR1A,True,44,True,True,True,data_and_model

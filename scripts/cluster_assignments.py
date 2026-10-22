@@ -1,4 +1,4 @@
-"""Load Butina assignments by ligand ID rather than from the raw source table."""
+"""Load Butina assignments by ligand ID rather than from source-table row order."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ CLUSTER_COL = "Butina_clusters"
 
 
 def attach_cluster_assignments(
-    df: pd.DataFrame,
+    frame: pd.DataFrame,
     assignments_path: Path,
     *,
     allow_missing: bool = False,
@@ -22,7 +22,7 @@ def attach_cluster_assignments(
     if assignments[LIGAND_ID_COL].duplicated().any():
         raise ValueError(f"Duplicate ligand IDs in {assignments_path}")
 
-    source = df.drop(columns=[CLUSTER_COL], errors="ignore").copy()
+    source = frame.drop(columns=[CLUSTER_COL], errors="ignore").copy()
     source[LIGAND_ID_COL] = source[LIGAND_ID_COL].astype(int)
     assignments[LIGAND_ID_COL] = assignments[LIGAND_ID_COL].astype(int)
     joined = source.merge(assignments, on=LIGAND_ID_COL, how="left", sort=False, validate="one_to_one")

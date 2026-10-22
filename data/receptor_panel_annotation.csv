@@ -31,15 +31,15 @@ article_pdb_id,panel_col,target_name,gene,protein_class,organ_system,is_cns,note
 7kwe,7kwe,Phosphodiesterase 3A,PDE3A,Enzyme,CVS,0,
 7ljd,7ljd,Dopamine receptor D1,DRD1,GPCR,"CVS, CNS",1,
 7wc9,7wc9,5-HT2A receptor,HTR2A,GPCR,"CVS, CNS",1,
-7xnk,7xnk,KCNQ1 + KCNE1 channel,KCNQ1+KCNE1,Ion channel,CVS,0,
+7xnk,7xnk,KCNQ1 potassium channel,KCNQ1,Ion channel,CVS,0,Source affinity header and Nikitin et al. Table S1 use KCNQ1; the PDB structure may include additional subunits.
 7ym8,7ym8,Alpha-1A adrenergic receptor,ADRA1A,GPCR,"CVS, GI, CNS",1,
 8e9y,8e9y,Muscarinic acetylcholine receptor M3,CHRM3,GPCR,"GI, pulmonary",0,
 8ef6,8ef6,Mu opioid receptor,OPRM1,GPCR,"CNS, GI, CVS",1,
 8fhs,8fhs,Cav1.2 calcium channel,CACNA1C,Ion channel,CVS,0,
 8pjk,8pjk,5-HT1A receptor,HTR1A,GPCR,"CNS, endocrine",1,
-8st0,8st0,Acetylcholine receptor subunit alpha1/alpha4,CHRNA1/4,Ion channel,"CNS, CVS, GI, pulmonary",1,
+8st0,8st0,Nicotinic acetylcholine receptor subunit alpha-4,CHRNA4,Ion channel,CNS,1,Source affinity header and Nikitin et al. Table S1 use CHRNA4.
 8wty,8wty,Noradrenaline transporter,SLC6A2,Transporter,"CNS, CVS",1,
 8xvk,8xvk,Endothelin receptor A,EDNRA,GPCR,"CVS, development",0,
 8yn3,8yn3,Histamine H2 receptor,HRH2,GPCR,"GI, CVS",0,
 9eo4,9eo4,Dopamine transporter,SLC6A3,Transporter,CNS,1,
-7ryc,V1A,Vasopressin V1A receptor,AVPR1A,GPCR,"Renal, CVS",0,Homology model in article; panel column is V1A (maps to 9uwl in residue matrices).
+V1A,V1A,Vasopressin V1A receptor,AVPR1A,GPCR,"Renal, CVS",0,Source affinity header and Nikitin et al. Table S1 use AVPR1A.

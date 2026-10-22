@@ -1,0 +1,90 @@
+# Table note: ADMETLab outputs were used as provided. No field-specific thresholds, recalculation, or binarization were applied. For uncertainty-landscape stratification only, the median of the prespecified continuous B_Tox sum was used to define Pheno+ and Pheno− display strata.
+# Scope: 68 fields used in the ADME point-prediction model and 19 phenotype markers screened in Supplementary Table S3.
+ADMETLab field,Purpose in this study,Example stored output (ligand_id=1)
+Vol,Input to the ADME point-prediction model.,157.98955366331904
+Dense,Input to the ADME point-prediction model.,1.1965981016876075
+nHA,Input to the ADME point-prediction model.,3.0
+nHD,Input to the ADME point-prediction model.,0.0
+TPSA,Input to the ADME point-prediction model.,9.03
+nRot,Input to the ADME point-prediction model.,3.0
+nRing,Input to the ADME point-prediction model.,3.0
+MaxRing,Input to the ADME point-prediction model.,3.0
+nHet,Input to the ADME point-prediction model.,5.0
+fChar,Input to the ADME point-prediction model.,0.0
+nRig,Input to the ADME point-prediction model.,10.0
+Flex,Input to the ADME point-prediction model.,0.3
+nStereo,Input to the ADME point-prediction model.,0.0
+gasa,Input to the ADME point-prediction model.,0.0
+QED,Input to the ADME point-prediction model.,0.461
+Synth,Input to the ADME point-prediction model.,3.627
+Fsp3,Input to the ADME point-prediction model.,1.0
+MCE-18,Input to the ADME point-prediction model.,30.0
+Natural Product-likeness,Input to the ADME point-prediction model.,-0.059
+Alarm_NMR,Input to the ADME point-prediction model.,1.0
+BMS,Input to the ADME point-prediction model.,3.0
+Chelating,Input to the ADME point-prediction model.,1.0
+PAINS,Input to the ADME point-prediction model.,1.0
+Lipinski,Input to the ADME point-prediction model.,0.0
+Pfizer,Input to the ADME point-prediction model.,0.0
+GSK,Input to the ADME point-prediction model.,0.0
+GoldenTriangle,Input to the ADME point-prediction model.,1.0
+logS,Input to the ADME point-prediction model.,0.1728197032196701
+logD,Input to the ADME point-prediction model.,0.5610892050280061
+logP_admet,Input to the ADME point-prediction model.,0.656675264044922
+mp,Input to the ADME point-prediction model.,48.10504533962516
+bp,Input to the ADME point-prediction model.,215.4022863421337
+pka_acidic,Input to the ADME point-prediction model.,8.54566907431677
+pka_basic,Input to the ADME point-prediction model.,5.686088563621078
+caco2,Input to the ADME point-prediction model.,-4.499907551416364
+MDCK,Input to the ADME point-prediction model.,-4.409297521671259
+PAMPA,Input to the ADME point-prediction model.,0.0004412140115164
+pgp_inh,Input to the ADME point-prediction model.,0.8636223077774048
+pgp_sub,Input to the ADME point-prediction model.,0.731863260269165
+hia,Input to the ADME point-prediction model.,5.030632019042969e-05
+f20,Input to the ADME point-prediction model.,0.8399358540773392
+f30,Input to the ADME point-prediction model.,0.2933200597763061
+f50,Input to the ADME point-prediction model.,0.443132996559143
+OATP1B1,Input to the ADME point-prediction model.,8.636513666715473e-05
+OATP1B3,Input to the ADME point-prediction model.,4.408807683375926e-07
+BCRP,Input to the ADME point-prediction model.,1.397076357534388e-05
+BSEP,Input to the ADME point-prediction model.,0.2460795044898986
+BBB,Input to the ADME point-prediction model.,0.977918803691864
+MRP1,Input to the ADME point-prediction model.,0.9388275146484376
+PPB,Input to the ADME point-prediction model.,2.9732683138621923
+logVDss,Input to the ADME point-prediction model.,0.1089654224408548
+Fu,Input to the ADME point-prediction model.,95.30626773329668
+CYP1A2-inh,Input to the ADME point-prediction model.,5.629675570162362e-07
+CYP1A2-sub,Input to the ADME point-prediction model.,0.9992045760154724
+CYP2C19-inh,Input to the ADME point-prediction model.,0.0937859117984771
+CYP2C19-sub,Input to the ADME point-prediction model.,1.0
+CYP2C9-inh,Input to the ADME point-prediction model.,0.2118280529975891
+CYP2C9-sub,Input to the ADME point-prediction model.,3.820542406174354e-05
+CYP2D6-inh,Input to the ADME point-prediction model.,0.2817296087741852
+CYP2D6-sub,Input to the ADME point-prediction model.,7.531361188739538e-05
+CYP3A4-inh,Input to the ADME point-prediction model.,0.3171987235546112
+CYP3A4-sub,Input to the ADME point-prediction model.,1.0
+CYP2B6-inh,Input to the ADME point-prediction model.,1.0
+CYP2B6-sub,Input to the ADME point-prediction model.,1.0
+CYP2C8-inh,Input to the ADME point-prediction model.,0.9665396213531494
+LM-human,Input to the ADME point-prediction model.,0.9080427885055542
+cl-plasma,Input to the ADME point-prediction model.,6.3740864315285855
+t0.5,Input to the ADME point-prediction model.,2.198688050457241
+hERG,Retained component of the prespecified continuous B_Tox coordinate for uncertainty-landscape analysis.,0.0012847338803112
+Respiratory,Retained component of the prespecified continuous B_Tox coordinate for uncertainty-landscape analysis.,0.9992141723632812
+Neurotoxicity-DI,Retained component of the prespecified continuous B_Tox coordinate for uncertainty-landscape analysis.,1.0
+hERG-10um,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained. It was not retained to avoid counting a closely related hERG liability signal twice.,0.1679620593786239
+EI,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,0.0380925238132476
+DILI,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,0.9999998807907104
+Hematotoxicity,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,0.99998939037323
+EC,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,1.5070542036532686e-10
+Carcinogenicity,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,0.9999998807907104
+Ototoxicity,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,0.8976975083351135
+Ames,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,0.9999974966049194
+NonGenotoxic_Carcinogenicity,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,1.0
+Genotoxicity,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,1.0
+H-HT,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,1.0
+Nephrotoxicity-DI,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,1.0
+SkinSen,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,0.9974887371063232
+Acute_Aquatic_Toxicity,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,1.0
+Genotoxic_Carcinogenicity_Mutagenicity,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,3.0
+Skin_Sensitization,Early candidate for the integrated toxicity burden (B_Tox); screened in Supplementary Table S3 and not retained.,1.0

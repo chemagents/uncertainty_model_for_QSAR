@@ -1,0 +1,10 @@
+selection_rule,marker,n_selected,selection_frequency
+historical_fixed_three_component_definition,Neurotoxicity-DI,30,1.0
+historical_fixed_three_component_definition,Respiratory,30,1.0
+historical_fixed_three_component_definition,hERG,30,1.0
+one_representative_per_axis_positive_top3,Neurotoxicity-DI,30,1.0
+one_representative_per_axis_positive_top3,Respiratory,30,1.0
+one_representative_per_axis_positive_top3,hERG,30,1.0
+ungrouped_positive_top3,Respiratory,30,1.0
+ungrouped_positive_top3,hERG,30,1.0
+ungrouped_positive_top3,hERG-10um,30,1.0

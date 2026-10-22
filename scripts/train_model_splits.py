@@ -1,4 +1,4 @@
-"""Train and persist the five frozen model specifications on all 30 split-registry rows.
+"""Train and persist the five frozen model specifications on the corrected 30-split registry.
 
 The registered train/validation/test roles are strict: preprocessing and model
 fitting use train only, split-conformal residual calibration uses validation only,
@@ -19,6 +19,7 @@ import catboost
 from catboost import CatBoostRegressor
 import numpy as np
 import pandas as pd
+import scipy
 from scipy.stats import spearmanr
 import sklearn
 from sklearn.decomposition import PCA
@@ -29,15 +30,15 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 RESULTS = ROOT / "results"
 MODELS = RESULTS / "models"
-SPLITS = RESULTS / "splits"
-TABLES = RESULTS / "tables"
+SPLITS = DATA / "splits"
+SPLIT_SUMMARY = SPLITS / "split_summary.csv"
 TARGET = "-lgLD50, mol/kg"
 LIGAND_ID = "ligand_id"
 BBB = "bbb_rule_pass"
 PROTEINS = [
     "1m2z", "1pbq", "1xoq", "2rh1", "2vt4", "2ydo", "2z5x", "3b66", "3kk6", "3ln1",
     "3rze", "4djh", "4ey7", "4iar", "4mqs", "4n6h", "5cxv", "5i71", "5tvn", "5u09",
-    "5va1", "6cm4", "6kpf", "6kux", "6lqa", "6pdj", "6x3x", "7f8y", "7kwe",
+    "5va1", "6cm4", "6kpf", "6kux", "6lqa", "6pdj", "6x3x", "6y1z", "7f8y", "7kwe",
     "7ljd", "7wc9", "7xnk", "7ym8", "8e9y", "8ef6", "8fhs", "8pjk", "8st0", "8wty",
     "8xvk", "8yn3", "9eo4", "V1A",
 ]
@@ -270,10 +271,22 @@ def train_one(
     return rows
 
 
-def completed_rows(model_dir: Path) -> list[dict[str, Any]] | None:
+def completed_rows(model_dir: Path, expected_features: list[str], expected_pca_inputs: list[str] | None) -> list[dict[str, Any]] | None:
     metrics_path = model_dir / "metrics.json"
-    if not (metrics_path.is_file() and (model_dir / "model.cbm").is_file()):
+    preprocess_path = model_dir / "preprocess.json"
+    if not (metrics_path.is_file() and (model_dir / "model.cbm").is_file() and preprocess_path.is_file()):
         return None
+    preprocessing = json.loads(preprocess_path.read_text())
+    if preprocessing.get("features") != expected_features:
+        return None
+    if expected_pca_inputs is not None:
+        pca_path = model_dir / "pca.pkl"
+        if not pca_path.is_file():
+            return None
+        with pca_path.open("rb") as stream:
+            pca = pickle.load(stream)
+        if list(getattr(pca, "feature_names_in_", [])) != expected_pca_inputs:
+            return None
     return json.loads(metrics_path.read_text())["rows"]
 
 
@@ -303,32 +316,60 @@ def main() -> None:
     parser.add_argument("--split-indices", help="Comma-separated registered split indices; default: all 30.")
     args = parser.parse_args()
 
+    MODELS.mkdir(parents=True, exist_ok=True)
+
     raw = pd.read_csv(DATA / "df_final.csv")
-    excluded = set(pd.read_csv(DATA / "excluded_molecules.csv").query("scope == 'all_model_splits'")[LIGAND_ID].astype(int))
-    df = raw.loc[~raw[LIGAND_ID].astype(int).isin(excluded)].copy()
+    excluded_path = DATA / "excluded_molecules.csv"
+    excluded = set(pd.read_csv(excluded_path).query("scope == 'all_model_splits'")[LIGAND_ID].astype(int))
+    df = raw.copy()
     registry_path = SPLITS / "split_indices.csv"
     registry = pd.read_csv(registry_path)
-    if len(df) != 12650 or registry[LIGAND_ID].isin(excluded).any():
-        raise RuntimeError("The active 12,650-molecule cohort or split registry is invalid")
+    split_summary = pd.read_csv(SPLIT_SUMMARY)
+    if len(df) != 12650 or df[LIGAND_ID].nunique() != 12650:
+        raise RuntimeError("The corrected active modeling cohort must contain 12,650 unique ligand IDs")
+    excluded_in_data = sorted(set(df[LIGAND_ID].astype(int)) & excluded)
+    if excluded_in_data:
+        raise RuntimeError(f"Excluded ligand IDs unexpectedly remain in df_final.csv: {excluded_in_data}")
+    if registry[LIGAND_ID].isin(excluded).any():
+        raise RuntimeError("The split registry contains an excluded ligand ID")
+    if set(split_summary["split_index"].astype(int)) != set(registry["split_index"].astype(int).unique()):
+        raise RuntimeError("Split summary and registry have different split indices")
+    seed_by_index = split_summary.set_index("split_index")["seed"].astype(int).to_dict()
     required = set(feature_sets(df)["ADME"]) | {TARGET, LIGAND_ID, BBB}
     missing = sorted(required - set(df.columns))
     if missing:
         raise RuntimeError(f"Missing required columns: {missing}")
 
     write_json(MODELS / "butina30_protocol.json", {
-        "protocol": "butina30_train_val_split_conformal_v1",
+        "protocol": "butina_cluster_safe_random_splits_v2",
         "source_data": "data/df_final.csv",
         "source_data_sha256": sha256(DATA / "df_final.csv"),
-        "split_registry": "results/splits/split_indices.csv",
+        "split_registry": "data/splits/split_indices.csv",
         "split_registry_sha256": sha256(registry_path),
+        "split_summary": "data/splits/split_summary.csv",
+        "split_summary_sha256": sha256(SPLIT_SUMMARY),
+        "training_script": "scripts/train_model_splits.py",
+        "training_script_sha256": sha256(Path(__file__).resolve()),
         "raw_source_rows": int(len(raw)),
         "active_modeling_cohort": int(len(df)),
-        "excluded_all_model_splits": sorted(excluded),
+        "registered_excluded_ligand_ids": sorted(excluded),
+        "excluded_ids_present_in_source_data": excluded_in_data,
+        "exclusion_policy": "The four registered exclusions are already absent from the corrected active table; no second filtering is applied.",
+        "excluded_molecules_sha256": sha256(excluded_path),
         "roles": {"train": "fit model and preprocessing", "val": "split-conformal calibration", "test": "one final evaluation"},
         "model_order": MODEL_ORDER,
+        "raw_docking_feature_count": len(PROTEINS),
+        "raw_docking_features": PROTEINS,
         "frozen_parameters": FROZEN_PARAMS,
         "confidence_levels": list(CONFIDENCE_LEVELS),
-        "environment": {"python": platform.python_version(), "catboost": catboost.__version__, "scikit_learn": sklearn.__version__},
+        "environment": {
+            "python": platform.python_version(),
+            "numpy": np.__version__,
+            "pandas": pd.__version__,
+            "scipy": scipy.__version__,
+            "catboost": catboost.__version__,
+            "scikit_learn": sklearn.__version__,
+        },
     })
 
     all_features = feature_sets(df)
@@ -350,7 +391,7 @@ def main() -> None:
             raise RuntimeError(f"Split {split_index} has no BBB-pass test molecules")
         write_json(split_dir / "split_manifest.json", {
             "split_index": int(split_index),
-            "seed": int(42 + split_index),
+            "seed": int(seed_by_index[int(split_index)]),
             "counts": {role: int(len(frame)) for role, frame in frames.items()},
             "bbb_pass_counts": {role: int(frame[BBB].eq(1).sum()) for role, frame in frames.items()},
             "id_sha256": {role: hashlib.sha256(",".join(map(str, frame[LIGAND_ID].astype(int))).encode()).hexdigest() for role, frame in frames.items()},
@@ -360,7 +401,8 @@ def main() -> None:
         plain_bbb_ids: set[int] | None = None
         for model_name in MODEL_ORDER:
             model_dir = split_dir / slug(model_name)
-            rows = completed_rows(model_dir) if args.resume else None
+            expected_pca_inputs = PROTEINS if model_name == "PCA" else None
+            rows = completed_rows(model_dir, all_features[model_name], expected_pca_inputs) if args.resume else None
             if rows is None:
                 domains = {"full_test": frames["test"]} if model_name != "BBB pass" else {}
                 if model_name in {"Plain", "BBB pass"}:
@@ -368,7 +410,7 @@ def main() -> None:
                 rows = train_one(model_name, frames, all_features, model_dir, domains)
             for row in rows:
                 row["split_index"] = int(split_index)
-                row["seed"] = int(42 + split_index)
+                row["seed"] = int(seed_by_index[int(split_index)])
                 all_rows.append(row)
                 if model_name == "Plain" and row["evaluation_domain"] == "bbb_pass_test":
                     plain_bbb_ids = set(pd.read_csv(model_dir / "test_predictions_bbb_pass_test.csv")[LIGAND_ID].astype(int))
@@ -385,18 +427,18 @@ def main() -> None:
             raise RuntimeError(f"Split {split_index}: Plain and BBB-pass test IDs differ")
 
     metrics = pd.DataFrame(all_rows).sort_values(["split_index", "model", "evaluation_domain"])
-    metrics.to_csv(TABLES / "model_comparison_metrics.csv", index=False)
+    metrics.to_csv(MODELS / "model_comparison_metrics.csv", index=False)
     summary = summarize(metrics)
-    summary.to_csv(TABLES / "model_comparison_summary.csv", index=False)
+    summary.to_csv(MODELS / "model_comparison_summary.csv", index=False)
     pairs = pd.DataFrame(pair_rows)
-    pairs.to_csv(TABLES / "model_comparison_bbb_pair_audit.csv", index=False)
+    pairs.to_csv(MODELS / "model_comparison_bbb_pair_audit.csv", index=False)
     if not pairs["same_test_ids"].all():
         raise RuntimeError("BBB pair audit failed")
-    write_json(TABLES / "model_comparison_config.json", {
-        "protocol": "butina30_train_val_split_conformal_v1",
-        "metrics_file": "results/tables/model_comparison_metrics.csv",
-        "summary_file": "results/tables/model_comparison_summary.csv",
-        "bbb_pair_audit": "results/tables/model_comparison_bbb_pair_audit.csv",
+    write_json(MODELS / "model_comparison_config.json", {
+        "protocol": "butina_cluster_safe_random_splits_v2",
+        "metrics_file": "results/models/model_comparison_metrics.csv",
+        "summary_file": "results/models/model_comparison_summary.csv",
+        "bbb_pair_audit": "results/models/model_comparison_bbb_pair_audit.csv",
         "model_root": "results/models/split_00 ... results/models/split_29",
         "figure_1_panel_a": ["Baseline", "PCA", "ADME", "Plain"],
         "figure_1_panel_b": ["Plain", "BBB pass"],
